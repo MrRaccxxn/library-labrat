@@ -3,5 +3,166 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "library-labrat": {
+      "projectType": "library",
+      "root": "projects/library-labrat",
+      "sourceRoot": "projects/library-labrat/src",
+      "prefix": "ups",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/library-labrat/tsconfig.lib.json",
+            "project": "projects/library-labrat/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/library-labrat/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/library-labrat/src/test.ts",
+            "tsConfig": "projects/library-labrat/tsconfig.spec.json",
+            "karmaConfig": "projects/library-labrat/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/library-labrat/tsconfig.lib.json",
+              "projects/library-labrat/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "library-labrat-workspace": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/library-labrat-workspace",
+      "sourceRoot": "projects/library-labrat-workspace/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/library-labrat-workspace",
+            "index": "projects/library-labrat-workspace/src/index.html",
+            "main": "projects/library-labrat-workspace/src/main.ts",
+            "polyfills": "projects/library-labrat-workspace/src/polyfills.ts",
+            "tsConfig": "projects/library-labrat-workspace/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/library-labrat-workspace/src/favicon.ico",
+              "projects/library-labrat-workspace/src/assets"
+            ],
+            "styles": [
+              "projects/library-labrat-workspace/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/library-labrat-workspace/src/environments/environment.ts",
+                  "with": "projects/library-labrat-workspace/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "library-labrat-workspace:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "library-labrat-workspace:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "library-labrat-workspace:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/library-labrat-workspace/src/test.ts",
+            "polyfills": "projects/library-labrat-workspace/src/polyfills.ts",
+            "tsConfig": "projects/library-labrat-workspace/tsconfig.spec.json",
+            "karmaConfig": "projects/library-labrat-workspace/karma.conf.js",
+            "assets": [
+              "projects/library-labrat-workspace/src/favicon.ico",
+              "projects/library-labrat-workspace/src/assets"
+            ],
+            "styles": [
+              "projects/library-labrat-workspace/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/library-labrat-workspace/tsconfig.app.json",
+              "projects/library-labrat-workspace/tsconfig.spec.json",
+              "projects/library-labrat-workspace/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/library-labrat-workspace/e2e/protractor.conf.js",
+            "devServerTarget": "library-labrat-workspace:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "library-labrat-workspace:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "library-labrat"
 }
